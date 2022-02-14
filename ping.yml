@@ -1,5 +1,5 @@
 ---
-- hosts: 192.168.88.220
+- hosts: 101.132.105.49
   tasks:
     - name: Ping Test
       shell: ping -c 5 -w 3 223.5.5.5  >>ping.log
