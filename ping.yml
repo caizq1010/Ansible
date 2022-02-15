@@ -1,5 +1,5 @@
 ---
-- hosts: 172.18.0.3
+- hosts: localhost
   tasks:
     - name: Ping Test
 #     shell: ifconfig -a
