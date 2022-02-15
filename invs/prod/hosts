@@ -8,10 +8,4 @@ localhost ansible_connection=local ansible_python_interpreter=python3
 localhost ansible_connection=local ansible_python_interpreter=python3
 
 [server]
-101.132.105.49
 localhost
-
-[all:vars]
-ansible_ssh_user="root"
-ansible_ssh_pass="bcmP@ssw0rd" 
-ansible_ssh_port=22
