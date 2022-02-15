@@ -8,4 +8,5 @@ localhost ansible_connection=local ansible_python_interpreter=python3
 localhost ansible_connection=local ansible_python_interpreter=python3
 
 [server]
+172.18.0.3
 localhost
