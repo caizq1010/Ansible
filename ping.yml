@@ -2,7 +2,7 @@
 - hosts: localhost
   tasks:
     - name: Ping Test
-      shell: ping -c 5 -w 5 223.5.5.5
+      shell: ping -c 5 -w 5 223.5.5.5 >>ping_result.log
       delegate_to: localhost
       ignore_errors: true
       register: ping_result
