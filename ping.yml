@@ -1,8 +1,8 @@
 ---
-- hosts: 101.132.105.49
+- hosts: all
   tasks:
     - name: Ping Test
-      shell: ping -c 5 -w 3 223.5.5.5  >>ping.log
+      shell: ping -c 5 -w 3 223.5.5.5
       delegate_to: localhost
       ignore_errors: true
       register: ping_result
