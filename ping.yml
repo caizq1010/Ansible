@@ -1,5 +1,5 @@
 ---
-- hosts: 101.132.105.49
+- hosts: localhost
   tasks:
     - name: Ping Test
       shell: ping -c 5 -w 5 223.5.5.5
