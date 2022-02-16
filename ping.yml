@@ -1,8 +1,11 @@
 ---
 - hosts: localhost
   tasks:
+    - name: Show IP Information
+      shell: hostname
+    - name: Show IP Information
+      shell: ifconfig -a
     - name: Ping Test
-#     shell: ifconfig -a
       shell: ping -c 5 -w 5 223.5.5.5 >>ping_result.log
 #     shell: ping -c 5 -w 5 101.132.105.49  >>ping_result.log
       delegate_to: localhost
