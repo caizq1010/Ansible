@@ -1,14 +1,33 @@
 ---
 - hosts: localhost
+  gather_facts: F
   tasks:
-    - name: Show IP Information
+    - name: Show df Information
+      shell: df -h
+      register: shell_result
+    - debug:
+        var: shell_result.stdout_lines
+
+    - name: Show Host Name Information
       shell: hostname
+      ignore_errors: true
+      register: hostname_result
+    - debug:
+         var: hostname_result.stdout_lines
+
+    - name: Show debug info
+      debug: var=result.stdout verbosity=0
+
     - name: Show IP Information
-      shell: ifconfig -a
+      shell: ifconfig -a  >>Show_IP_Result.log
+      ignore_errors: true
+      register: Show_IP_Result
+    - debug:
+         var: Show_IP_Result.stdout_lines
+
     - name: Ping Test
-      shell: ping -c 5 -w 5 223.5.5.5 >>ping_result.log
-#     shell: ping -c 5 -w 5 101.132.105.49  >>ping_result.log
+      shell: ping -c 5 -w 3 223.5.5.5  >>Ping_Result.log
       delegate_to: localhost
       ignore_errors: true
       register: ping_result
-    - debug: var=ping_result
+    - debug: var=ping_result.stdout verbosity=0
