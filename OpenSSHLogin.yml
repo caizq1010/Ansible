@@ -1,6 +1,6 @@
 ---
 #- hosts: 'test:!c2'
-- hosts: c2
+- hosts: localhost
 #- hosts: "`hosts`"
   gather_facts: false
   become: yes
