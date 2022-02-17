@@ -1,0 +1,27 @@
+---
+#- hosts: 'test:!c2'
+- hosts: c2
+#- hosts: "`hosts`"
+  gather_facts: false
+  become: yes
+  become_method: su
+  remote_user: root
+  tasks:
+  - name: 'change sshd_config'
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      regexp: "{{ item.regexp }}"
+      line: "{{ item.line }}"
+      state: present
+    with_items:
+#In this way
+#    - { regexp: "^#PermitRootLogin yes",line: "PermitRootLogin no" }
+#or
+#    - regexp: "^#PermitRootLogin yes"
+#      line: "PermitRootLogin no"
+#Both methods have the same effect
+    - { regexp: "PermitRootLogin yes",line: "PermitRootLogin no" }
+    notify: restart sshd
+  handlers:
+    - name: restart sshd
+      service: name=sshd state=restarted
