@@ -4,8 +4,8 @@
 #- hosts: "`hosts`"
   gather_facts: false
   become: yes
-  become_method: su
-  remote_user: root
+#  become_method: su
+#  remote_user: root
   tasks:
   - name: 'change sshd_config'
     lineinfile:
