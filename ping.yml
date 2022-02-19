@@ -18,9 +18,9 @@
     - name: Show debug info
       debug: var=result.stdout verbosity=0
       
-    - name: print facts
-      debug:
-        msg: "IPv4 address: {{ ansible_default_ipv4.address }}"
+# - name: print facts
+#      debug:
+#       msg: "IPv4 address: {{ ansible_default_ipv4.address }}"
 
     - name: Show IP Information
       shell: ifconfig -a
