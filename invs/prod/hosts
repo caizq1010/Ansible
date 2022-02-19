@@ -10,3 +10,5 @@ localhost ansible_connection=local ansible_python_interpreter=python3
 [server]
 #172.18.0.3
 localhost
+controller
+172.20.17.102
