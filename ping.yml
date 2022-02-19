@@ -1,5 +1,5 @@
 ---
-- hosts: controller
+- hosts: localhost
   gather_facts: F
   tasks:
     - name: Show df Information
@@ -9,7 +9,7 @@
         var: shell_result.stdout_lines
 
     - name: Show Host Name Information
-      shell: controller
+      shell: localhost
       ignore_errors: true
       register: hostname_result
     - debug:
