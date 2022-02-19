@@ -19,7 +19,7 @@
       debug: var=result.stdout verbosity=0
 
     - name: Show IP Information
-      shell: ifconfig -a  >>Show_IP_Result.log
+      shell: ifconfig -a
       ignore_errors: true
       register: Show_IP_Result
     - debug:
