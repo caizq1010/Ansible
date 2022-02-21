@@ -2,7 +2,14 @@
 - hosts: localhost
   gather_facts: F
   
-  vars:
+ tasks:
+    - name: Show df Information
+      shell: df -h
+      register: shell_result
+    - debug:
+        var: shell_result.stdout_lines
+        
+    vars:
       IP: "{{ ansible_default_ipv4['address'] }}"
       HOST_NAME: "{{ ansible_hostname }}"
       OS: "{{ ansible_distribution }}"
@@ -11,13 +18,6 @@
       TOTAL_MB: "{{ ansible_memtotal_mb }}"
       VCPUS: "{{ ansible_processor_vcpus }}" 
       
-  tasks:
-    - name: Show df Information
-      shell: df -h
-      register: shell_result
-    - debug:
-        var: shell_result.stdout_lines
-
     - name: Show Host Name Information
       shell: localhost
       ignore_errors: true
