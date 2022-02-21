@@ -1,0 +1,42 @@
+---
+  - hosts: myjob
+    gather_facts: True
+ 
+    vars:
+      IP: "{{ ansible_default_ipv4['address'] }}"
+      HOST_NAME: "{{ ansible_hostname }}"
+      OS: "{{ ansible_distribution }}"
+      VERSION: "{{ ansible_distribution_version }}"
+      SN: "{{ ansible_product_serial }}"
+      TOTAL_MB: "{{ ansible_memtotal_mb }}"
+      VCPUS: "{{ ansible_processor_vcpus }}" 
+ 
+    tasks:
+      - name: Disable SELinux
+        selinux:
+          policy: targeted
+          state: enforcing
+      - file: path=/tmp/{{ item.path }} state=absent
+        with_items:
+          - { path: 'hostinfo.csv' }
+      - file: path=/tmp/{{ item.path }} state=touch owner=root group=root mode=0644
+        with_items:
+          - { path: 'hostinfo.csv' }
+      - name: machine is VM or not
+        set_fact: SN="VMware-42"
+        when: ansible_product_serial.find('VMware') != -1
+      - name: copy cpu_mem.sh to remote machine
+        template:
+          src: /root/cpu_mem.sh
+          dest: /tmp/cpu_mem.sh
+      - name: write hostinfo to log
+        shell: /usr/bin/printf "{{ IP }}, {{ HOST_NAME }}, {{ OS }}, {{ VERSION }}, {{ SN }}, {{ TOTAL_MB }}, {{ VCPUS }}, " >> /tmp/hostinfo.csv
+      - name: write cpu_rate, mem_rate to log
+        script: /tmp/cpu_mem.sh
+      - name: store file into /tmp/checklog/
+        fetch:
+          src: /tmp/{{ item.path }}
+          dest: /tmp/checklog/
+          mode: 0644
+        with_items:
+          - {path: 'hostinfo.csv'}
