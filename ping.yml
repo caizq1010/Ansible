@@ -2,13 +2,13 @@
 - hosts: localhost
   gather_facts: F
   
- tasks:
+  tasks:
     - name: Show df Information
       shell: df -h
       register: shell_result
     - debug:
         var: shell_result.stdout_lines
-         
+        
     - name: Show Host Name Information
       shell: localhost
       ignore_errors: true
